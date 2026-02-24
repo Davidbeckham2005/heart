@@ -507,10 +507,16 @@
 </head>
 
 <body>
-    <!-- <audio autoplay>
-        <source src="audio.mp3" type="audio/wav">
-        Trình duyệt của bạn không hỗ trợ thẻ audio.
-    </audio> -->
+
+    <!-- <div>
+        <label for="song-select">Chọn bài hát:</label>
+        <select id="song-select">
+            <option value="" disabled selected>-- Chọn một bản nhạc --</option>
+            <option value="link-nhac-1.mp3">Giai điệu Mùa Xuân</option>
+            <option value="link-nhac-2.mp3">Lo-fi Chill</option>
+            <option value="link-nhac-3.mp3">Nhạc Acoustic</option>
+        </select>
+    </div> -->
     <div class="sp-container">
         <div class="sp-content">
             <div class="sp-globe"></div>
@@ -519,8 +525,8 @@
             <h2 class="frame-3">Ngày đêm thương nhớ</h2>
             <h2 class="frame-4">Tớ muốn nói là</h2>
             <h2 class="frame-5">
-                <span>Cái</span>
-                <span>CC</span>
+                <span>Tớ</span>
+                <span>Thích</span>
                 <span>Cậu</span>
             </h2>
         </div>
@@ -779,8 +785,16 @@
 
 
         // 2. KHAI BÁO BIẾN SAU KHI THƯ VIỆN ĐÃ LOAD
+        const musics = [
+            { id: "1", src: "audio.mp3", name: "audio" },
+            { id: "2", src: "bts.mp3", name: "fake love" },
+            { id: "3", src: "fav.mp3", name: "neu nuoc mat troi di..." },
+            { id: "4", src: "cotraitimmauhong.mp3", name: "co trai tim mau hong..." },
+        ]
+        const randomNum = Math.floor(Math.random() * 4) + 1;
+        src_random = musics.find(m => m.id == randomNum)
         var sound = new Howl({
-            src: ['fav.mp3'],
+            src: [src_random.src],
             autoplay: false, // Để false để tránh bị trình duyệt chặn
             loop: true,
             volume: 1,
