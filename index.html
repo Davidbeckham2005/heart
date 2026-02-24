@@ -3,6 +3,7 @@
 
 <head>
     <title>I LOVE YOU</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
     <meta name="Generator" content="EditPlus" />
     <meta name="Author" content="" />
     <meta name="Keywords" content="" />
@@ -506,10 +507,10 @@
 </head>
 
 <body>
-    <audio autoplay>
-        <source src="audio.mp3" type="audio/mp3">
+    <!-- <audio autoplay>
+        <source src="audio.mp3" type="audio/wav">
         Trình duyệt của bạn không hỗ trợ thẻ audio.
-    </audio>
+    </audio> -->
     <div class="sp-container">
         <div class="sp-content">
             <div class="sp-globe"></div>
@@ -775,6 +776,31 @@
                 render();
             }, 10);
         })(document.getElementById("pinkboard"));
+
+
+        // 2. KHAI BÁO BIẾN SAU KHI THƯ VIỆN ĐÃ LOAD
+        var sound = new Howl({
+            src: ['audio.mp3'],
+            autoplay: false, // Để false để tránh bị trình duyệt chặn
+            loop: true,
+            volume: 0.5,
+            onload: function () {
+                console.log("Nhạc đã tải xong!");
+            },
+            onloaderror: function (id, error) {
+                console.error("Lỗi tải file: ", error);
+            }
+        });
+
+        // 3. MẸO QUAN TRỌNG: Tự động phát khi người dùng click bất kỳ đâu
+        // Trình duyệt hiện nay CẤM nhạc tự phát nếu người dùng chưa tương tác.
+        document.addEventListener('click', function () {
+            if (!sound.playing()) {
+                sound.play();
+                console.log("Đang phát nhạc...");
+            }
+        }, { once: true });
+
     </script>
 </body>
 
