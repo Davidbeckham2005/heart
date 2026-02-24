@@ -784,6 +784,7 @@
             autoplay: false, // Để false để tránh bị trình duyệt chặn
             loop: true,
             volume: 0.5,
+            html5: true,
             onload: function () {
                 console.log("Nhạc đã tải xong!");
             },
@@ -791,9 +792,17 @@
                 console.error("Lỗi tải file: ", error);
             }
         });
-
+        function unlockAudio() {
+            if (sound.state() === 'loaded') {
+                sound.play();
+                // Sau khi phát được rồi thì gỡ bỏ sự kiện để không bị phát đè
+                document.removeEventListener('click', unlockAudio);
+                document.removeEventListener('touchstart', unlockAudio);
+            }
+        }
         // 3. MẸO QUAN TRỌNG: Tự động phát khi người dùng click bất kỳ đâu
         // Trình duyệt hiện nay CẤM nhạc tự phát nếu người dùng chưa tương tác.
+        document.addEventListener('click', unlockAudio);
         document.addEventListener('click', function () {
             if (!sound.playing()) {
                 sound.play();
